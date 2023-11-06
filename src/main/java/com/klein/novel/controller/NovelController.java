@@ -61,6 +61,16 @@ public class NovelController {
         return new ResponseEntity<>(imageByte, headers, HttpStatus.OK);
     }
 
+    @GetMapping("/top/{top}")
+    public ResponseEntity<List<Novel>> getTopMostViews(@PathVariable int top) {
+        return new ResponseEntity<>(novelService.getTopMostViews(top),HttpStatus.OK);
+    }
+
+    @GetMapping("/publish/{publish}")
+    public ResponseEntity<List<Novel>> getLatestPublishedNovels(@PathVariable int publish) {
+        return new ResponseEntity<>(novelService.getLatestPublishedNovels(publish),HttpStatus.OK);
+    }
+
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value = "/category",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     // /category?ids=1&id=2

@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
 import java.util.List;
 
 @Table(name = "novels", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
@@ -33,6 +34,13 @@ public class Novel {
     @Column(nullable = false)
     @NotEmpty
     private String status;
+
+    @Column(nullable = false)
+    private int views;
+
+    private Date createdAt;
+
+    private Date updatedAt;
 
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "image_id")

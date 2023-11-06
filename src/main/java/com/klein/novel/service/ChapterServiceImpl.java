@@ -32,9 +32,14 @@ public class ChapterServiceImpl implements ChapterService{
         return chapterRepository.findByNovelId(id);
     }
 
+
     @Override
     public ChapterDto getChapterByNovelIdAndChapterNumber(Long novelId, int chapterNumber) {
         Chapter chapter = chapterRepository.findByNovelIdAndChapterNumber(novelId,chapterNumber);
+        Novel novel = novelRepository.findById(novelId).get();
+        novel.setViews(novel.getViews() + 1);
+
+        novelRepository.save(novel);
         return mapToDto(chapter);
     }
 

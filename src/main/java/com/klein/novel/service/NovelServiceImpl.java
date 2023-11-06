@@ -7,6 +7,8 @@ import com.klein.novel.repository.AuthorRepository;
 import com.klein.novel.repository.CategoryRepository;
 import com.klein.novel.repository.NovelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -56,9 +58,22 @@ public class NovelServiceImpl implements NovelService {
     }
 
     @Override
+    public List<Novel> getTopMostViews(int top) {
+        Pageable pageable = PageRequest.of(0,top);
+        return novelRepository.findTopMostViewsNovels(pageable);
+    }
+
+    @Override
+    public List<Novel> getLatestPublishedNovels(int numberOfNovels) {
+        Pageable pageable = PageRequest.of(0,numberOfNovels);
+        return novelRepository.findAllByOrderByCreatedAtDesc(pageable);
+    }
+
+    @Override
     public Novel createNovel(Novel novel,List<Long> ids) {
         List<Category> categories = (List<Category>)categoryRepository.findAllById(ids);
         novel.setCategories(categories);
+        novel.setViews(0);
         return novelRepository.save(novel);
     }
 
