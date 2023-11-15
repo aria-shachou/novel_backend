@@ -7,8 +7,10 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.List;
 
 @Table(name = "novels", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
@@ -38,9 +40,11 @@ public class Novel {
     @Column(nullable = false)
     private int views;
 
-    private Date createdAt;
+    @CreatedDate
+    private Instant createdAt;
 
-    private Date updatedAt;
+    @LastModifiedDate
+    private Instant updatedAt;
 
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "image_id")

@@ -17,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
-
 @RestController
 @RequestMapping("api/v1/novel")
 public class NovelController {
@@ -32,7 +31,7 @@ public class NovelController {
     public ResponseEntity<Novel> getNovel(@PathVariable Long id) {
         return new ResponseEntity<>(novelService.getNovel(id), HttpStatus.OK);
     }
-
+    @CrossOrigin
     @GetMapping("/all")
     public ResponseEntity<List<Novel>> getAllNovels() {
         return new ResponseEntity<>(novelService.getAllNovels(), HttpStatus.OK);
