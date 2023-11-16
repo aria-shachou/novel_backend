@@ -7,10 +7,10 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import java.time.Instant;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Table(name = "novels", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
@@ -40,11 +40,11 @@ public class Novel {
     @Column(nullable = false)
     private int views;
 
-    @CreatedDate
-    private Instant createdAt;
+    @CreationTimestamp
+    private Timestamp createdAt;
 
-    @LastModifiedDate
-    private Instant updatedAt;
+    @UpdateTimestamp
+    private Timestamp updatedAt;
 
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "image_id")
