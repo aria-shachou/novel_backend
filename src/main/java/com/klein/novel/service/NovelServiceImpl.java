@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -74,6 +75,7 @@ public class NovelServiceImpl implements NovelService {
         List<Category> categories = (List<Category>)categoryRepository.findAllById(ids);
         novel.setCategories(categories);
         novel.setViews(0);
+        novel.setCreatedAt(new Date());
         return novelRepository.save(novel);
     }
 
@@ -87,6 +89,7 @@ public class NovelServiceImpl implements NovelService {
         oldNovel.setStatus(novel.getStatus());
         oldNovel.setDescription(novel.getDescription());
         oldNovel.setChapters(novel.getChapters());
+        oldNovel.setUpdatedAt(new Date());
         return novelRepository.save(oldNovel);
     }
 
